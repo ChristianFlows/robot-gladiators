@@ -1,5 +1,4 @@
 /* GAME FUNCTIONS */
-
 // function to start a new game
 var startGame = function() {
     // reset player stats
@@ -11,6 +10,7 @@ var startGame = function() {
         if (playerInfo.health > 0) {
         // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
         window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
+        debugger;
         // pick new enemy to fight based on the index of the enemyInfo array
         var pickedEnemyObj = enemyInfo[i];
         // set health for picked enemy
@@ -56,16 +56,16 @@ var fight = function(enemy) {
         // ask player if they'd like to fight or run
         var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
-      // if player picks "skip" confirm and then stop the loop
+        // if player picks "skip" confirm and then stop the loop
         if (promptFight === 'skip' || promptFight === 'SKIP') {
         // confirm player wants to skip
         var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
         // if yes (true), leave fight
         if (confirmSkip) {
-            window.alert(playerName + ' has decided to skip this fight. Goodbye!');
+            window.alert(playerInfo.name + ' has decided to skip this fight. Goodbye!');
             // subtract money from playerMoney for skipping
-            playerMoney = playerMoney - 10;
+            playerInfo.money = playerInfo.money - 10;
             shop();
             break;
         }
@@ -122,7 +122,7 @@ var fight = function(enemy) {
             ' health remaining.'
     );
 
-      // check player's health
+        // check player's health
         if (playerInfo.health <= 0) {
         window.alert(playerInfo.name + ' has died!');
         // leave while() loop if player is dead
@@ -132,7 +132,7 @@ var fight = function(enemy) {
         }
     }
 };
-  // go to shop between battles function
+// go to shop between battles function
 var shop = function() {
     // ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
@@ -160,19 +160,31 @@ var shop = function() {
     }
 };
 
-  // function to generate a random numeric value
+// function to generate a random numeric value
 var randomNumber = function(min, max) {
     var value = Math.floor(Math.random() * (max - min) + min);
 
     return value;
 };
-  /* END GAME FUNCTIONS */
+/* END GAME FUNCTIONS */
 
-  /* GAME INFORMATION / VARIABLES */
 
-  // player information
+/* GAME INFORMATION / VARIABLES */
+
+//function to set name
+var getPlayerName = function() {
+    var name = "";
+    while (name === "" || name === null) {
+        name = prompt("What is your robot's name?");
+    }
+
+    console.log("Your robot's name is " + name);
+    return name;
+};
+
+// player information
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
@@ -193,7 +205,7 @@ var playerInfo = {
     }
 };
 
-    // enemy information
+// enemy information
 var enemyInfo = [
     {
         name: 'Roborto',
@@ -214,7 +226,7 @@ console.log(enemyInfo[0]);
 console.log(enemyInfo[0].name);
 console.log(enemyInfo[0]['attack']);
 
-  /* END GAME INFORMATION / VARIABLES */
+/* END GAME INFORMATION / VARIABLES */
 
-  /* RUN GAME */
+/* RUN GAME */
 startGame();
